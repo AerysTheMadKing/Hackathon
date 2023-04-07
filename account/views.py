@@ -60,7 +60,6 @@ class ForgotPasswordView(APIView):
     @staticmethod
     def post(request):
         email = request.data['email']
-        assert '@' in email
         user = CustomUser.objects.get(email=email)
         if user.forgot_password_reset != '':
             return Response({'msg': 'проверьте почту!'}, status=201)

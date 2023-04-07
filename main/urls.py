@@ -14,7 +14,7 @@ router.register('', views.PostViewSet)
 urlpatterns = [
 
     # class URLS
-
+    path('create/', views.FilmCreateView.as_view()),
     path('', views.FilmListCreateView.as_view()),
     path('<int:pk>/', views.FilmDetailView.as_view()),
     path('film-ration/', views.UserFilmRelationApiView.as_view()),

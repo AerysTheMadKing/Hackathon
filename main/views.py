@@ -27,28 +27,28 @@ class PostViewSet(ModelViewSet):
     filterset_fields = ('title', 'year')
 
 
-# class FilmListCreateView(generics.ListCreateAPIView):
-#     queryset = Film.objects.all()
-#     serializer_class = serializers.FilmListSerializer
-#     # permission_classes = (permissions.IsAdminUser,)
-#     filter_backends = (SearchFilter, DjangoFilterBackend)
-#     search_fields = ('title',)
-#     filterset_fields = ('title', 'year')
-#
-#     def get_object(self):
-#         obj, _ = UserFilmRelation.objects.get_or_create(user=self.request.user,
-#                                                         films_id=self.kwargs['films'])
-#         return obj
+class FilmCreateView(generics.ListCreateAPIView):
+    queryset = Film.objects.all()
+    serializer_class = serializers.FilmDetailSerializer
+    # permission_classes = (permissions.IsAdminUser,)
+    filter_backends = (SearchFilter, DjangoFilterBackend)
+    search_fields = ('title',)
+    filterset_fields = ('title', 'year')
 
-# def get_permissions(self):
-#     if self.request.method == 'POST':
-#         return permissions.IsAdminUser(),
-#     return permissions.AllowAny(),
+    def get_object(self):
+        obj, _ = UserFilmRelation.objects.get_or_create(user=self.request.user,
+                                                        films_id=self.kwargs['films'])
+        return obj
 
-# def get_serializer_class(self):
-#     if self.request.method == 'GET':
-#         return serializers.FilmListSerializer
-#     return serializers.FilmDetailSerializer
+def get_permissions(self):
+    if self.request.method == 'POST':
+        return permissions.IsAdminUser(),
+    return permissions.AllowAny(),
+
+def get_serializer_class(self):
+    if self.request.method == 'GET':
+        return serializers.FilmListSerializer
+    return serializers.FilmDetailSerializer
 
 from main.utils import get_total_rating
 
@@ -84,7 +84,7 @@ class UserFilmRelationApiView(generics.ListCreateAPIView):
     queryset = UserFilmRelation.objects.all()
     serializer_class = UserFilmRelationSerializers
 
-
+8
 class ChangeApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserFilmRelation.objects.all()
     serializer_class = ChangeSerializers

@@ -9,7 +9,7 @@ from main.models import Film
 
 class Order(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    status = models.CharField(max_length=255, choices=ORDER_STATUS, ) # need to set default parameters
+    status = models.CharField(max_length=255, choices=ORDER_STATUS,) # need to set default parameters
     total_price = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     """нужно добавить created_at,"""
 
